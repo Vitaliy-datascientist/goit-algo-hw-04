@@ -1,5 +1,7 @@
 """Перше завдання"""
 
+import re
+
 
 def total_salary(path):
     """Функція  аналізує цей файл(path) і повертає загальну та середню
@@ -10,7 +12,7 @@ def total_salary(path):
     try:
         with open(path, 'r', encoding='utf_8') as fh:
             for line in fh:
-                line = line.strip()
+                line = re.sub(r'\s', '', line)
                 if not line:
                     continue
                 _, salary = line.split(',')
