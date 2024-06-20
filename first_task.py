@@ -11,7 +11,7 @@ def total_salary(path):
         with open(path, 'r', encoding='utf_8') as fh:
             for line in fh:
                 line = line.strip()
-                if line == '':
+                if not line:
                     continue
                 _, salary = line.split(',')
                 salary = int(salary)
@@ -22,5 +22,5 @@ def total_salary(path):
     except ValueError:
         return f'{path} пошкоджено'
 
-    mean = total / count_dev
+    mean = total // count_dev
     return total, mean
