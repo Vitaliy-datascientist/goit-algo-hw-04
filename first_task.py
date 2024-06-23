@@ -24,10 +24,9 @@ def total_salary(path: str) -> str | tuple[int, int]:
                     salary = int(salary)
                     total += salary
                     count_dev += 1
+            mean = total // count_dev
+            return total, mean
     except FileNotFoundError:
         return f'{path.absolute()}\nФайл не знайдено'
-    except ValueError:
+    except (ValueError, ZeroDivisionError):
         return f'{path.absolute()}\nФайл пошкоджено'
-    else:
-        mean = total // count_dev
-        return total, mean
