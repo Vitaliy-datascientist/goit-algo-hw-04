@@ -7,12 +7,10 @@ def input_error(func):
     def inner(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except ValueError:
+        except (ValueError, IndexError, TypeError):
             return "Enter the argument for the command."
         except KeyError:
-            return 'No contacts found under the name.'
-        except IndexError:
-            return "Enter the argument for the command."
+            return f'No contacts found under the name {args[0]}.'
 
     return inner
 
@@ -27,15 +25,18 @@ def parse_input(user_input):
 @input_error
 def add_contact(args, contacts):
     name, phone = args
-    contacts[name] = phone
-    return 'Contact added.'
+    if name not in contacts:
+        contacts[name] = phone
+        return 'Contact added.'
+    else:
+        return f'A contact named {name} already exists.'
 
 
 @input_error
 def change_contact(args, contacts):
     name, phone = args
     if name in contacts:
-        add_contact(args, contacts)
+        contacts[name] = phone
         return 'Contact changed.'
     else:
         return f'No contacts found under the name: {name}.'
@@ -43,7 +44,7 @@ def change_contact(args, contacts):
 
 @input_error
 def show_phone(args, contacts):
-    name = args[0]
+    name = args
     return contacts[name]
 
 
@@ -51,7 +52,7 @@ def show_phone(args, contacts):
 def show_all_contacts(args, contacts):
     if args:
         return 'The command accepts no arguments.'
-    elif not contacts:
+    if not contacts:
         return 'No contacts.'
     res = ''
     for key in contacts.keys():
@@ -76,7 +77,7 @@ def main():
         elif command == 'change':
             print(change_contact(args, contacts))
         elif command == 'phone':
-            print(show_phone(args, contacts))
+            print(show_phone(*args, contacts))
         elif command == 'all':
             print(show_all_contacts(args, contacts))
         else:
