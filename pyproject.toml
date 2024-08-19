@@ -3,7 +3,12 @@ name = "goit-algo-hw-04"
 version = "0.1.0"
 description = ""
 authors = ["Vitaliy-datascientist <vitaliy.dayneko2410@gmail.com>"]
-packages = [{'include' = 'third_task'}]
+packages = [
+    {'include' = 'first_task'},
+    {'include' = 'second_task'},
+    {'include' = 'third_task'},
+    {'include' = 'fourth_task'}
+    ]
 
 [tool.poetry.dependencies]
 python = "^3.12"
