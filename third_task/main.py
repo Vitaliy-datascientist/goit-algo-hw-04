@@ -1,20 +1,21 @@
 """Третє завдання.
 Скрипт приймає шлях до директорії в якості аргументу командного
                           рядка і візуалізує структуру цієї директорії, виводячи імена всіх піддиректорій та файлів."""
-
-from functionality import print_directories_and_files, get_path_and_length
+import sys
+from third_task.functionality import print_directories_and_files, get_length
 
 
 def main():
     """Головна функція"""
-    sep = '------|'
+
     try:
-        path, length = get_path_and_length()
-        print_directories_and_files(path, sep, length)
+        path = sys.argv[1]
+        length = get_length(path)
+        print_directories_and_files(path, length)
     except FileNotFoundError:
-        print(f'{path}\nДиректорію не знайдено')
+        print('Директорію не знайдено.')
     except NotADirectoryError:
-        print(f'{path}\nНе є директорією')
+        print('Не є директорією.')
 
 
 if __name__ == '__main__':

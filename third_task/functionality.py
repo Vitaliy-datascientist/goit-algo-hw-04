@@ -3,10 +3,9 @@
 import re
 from pathlib import Path
 from colorama import Fore
-import sys
 
 
-def print_directories_and_files(path, sep, last_length):
+def print_directories_and_files(path, last_length, sep='------|'):
     """Функція виводить в терміналі всі піддиректорії та файли у вказаній директорії з використанням різних
                           кольорів для піддиректорій та файлів, що полегшить візуальне сприйняття файлової структури."""
     path = Path(path)
@@ -30,9 +29,8 @@ def print_directories_and_files(path, sep, last_length):
     print()
 
 
-def get_path_and_length() -> type[str, int]:
+def get_length(path) -> int:
     """Функція обробляє та повертає отриманий шлях та кількість рядків розділені '\' чи '/'"""
     pattern = r'[\\/]+'
-    path = sys.argv[1]
     length = len(re.split(pattern, path))
-    return path, length
+    return length
